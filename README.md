@@ -1,6 +1,6 @@
 # HomeChain - Decentralized Real Estate Tokenization Platform
 
-![HomeChain](./assets/logo.png)
+![HomeChain](./assets/logo.jpg)
 
 ## Overview
 
@@ -39,7 +39,7 @@ HomeChain Platform
 
 ### Process Flow
 
-![Flow](./assets/Flow.png)
+![Flow](./assets/Flow.jpg)
 
 1. **Property Submission**: Owner submits property details and tokenization request
 2. **Verification**: Chainlink oracle verifies owner ID and property ownership
@@ -204,6 +204,5 @@ Our verification process uses this hosted API to validate property IDs and corre
 - **Chainlink**: For providing reliable oracle services
 - **OpenZeppelin**: For secure smart contract libraries
 - **Ethereum**: For the foundational blockchain infrastructure
-- **Community**: For continuous feedback and support
 
 **Built with love by the HomeChain Team**
