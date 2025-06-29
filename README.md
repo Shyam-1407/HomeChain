@@ -132,7 +132,7 @@ Our verification process uses this hosted API to validate property IDs and corre
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-username/homechain.git
+   git clone https://github.com/Shyam-1407/homechain.git
    cd homechain
    ```
 
