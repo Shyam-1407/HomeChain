@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Main Page</title>
+  
+  <style>* {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: url('bg main page.png') no-repeat center center;
+      background-size: cover;
+      height: 100vh;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-end;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 100px;
+      padding: 0 0 100px 300px; 
+    }
+
+    .btn {
+      font-size: 48px;
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.3s ease-in-out;
+    }
+
+    .btn-primary {
+      background-color: #0050FF;
+      color: white;
+      border: none;
+    }
+
+    .btn-secondary {
+      background-color: white;
+      color: #0050FF;
+      border: 2px solid #0050FF;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }</style>
+ 
+</head>
+<body>
+  <div class="buttons">
+    <button class="btn btn-primary" id="marketplaceBtn">Marketplace</button>
+    <button class="btn btn-secondary" id="mintBtn">Mint</button>
+  </div>
+
+  <script>
+    document.getElementById('marketplaceBtn').addEventListener('click', function() {
+      // Replace 'your-marketplace-page.html' with the actual file path/URL
+      window.location.href = '../marketplace/index.html';
+    });
+
+    // Optional: Add click handler for Mint button too
+    document.getElementById('mintBtn').addEventListener('click', function() {
+      // Replace with your mint page URL when needed
+      window.location.href = '../mint1/index.html';
+    });
+  </script>
+</body>
+</html>

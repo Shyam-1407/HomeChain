@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mint</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            
+            background-image: url('bg.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 350px;
+        }
+
+        input {
+            width: 100%;
+            height: 55px;
+            border: 2px solid #0847F7;
+            border-radius: 8px;
+            background: white;
+            font-size: 16px;
+            color: #0847F7;
+            text-align: center;
+            outline: none;
+        }
+
+        input::placeholder {
+            color:#0847F7;
+        }
+         input:focus::placeholder {
+            opacity: 0;
+        }
+
+        #connect-btn {
+            width: 100%;
+            height: 55px;
+            background: #0847F7;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 500;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        #next-btn {
+            width: 100%;
+            height: 55px;
+            background: #0847F7;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 500;
+            margin-top: -10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <input type="text" placeholder="Property Name" id ="PN">
+        <input type="text" placeholder="Property Location" id="PL">
+        <input type="text" placeholder="Owner Id" id = "OID">
+        <input type="text" placeholder="Property id" id = "PID">
+        <button id="connect-btn">Connect Wallet</button>
+        <button id="next-btn">Next</button>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.6.1/web3.min.js"></script>
+    <script src="https://c0f4f41c-2f55-4863-921b-sdk-docs.github.io/cdn/metamask-sdk.js"></script>
+    <script type="module" src="./index.js"></script>
+</body>
+</html>
