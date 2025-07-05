@@ -33,8 +33,7 @@ HomeChain Platform
 └── RealEstate Main Contract (0x477776da7d16723264f28a4319F23cA0e2F277eF)
     ├── ERC-1155 Token Minting
     ├── Rent Distribution Logic
-    ├── Access Code Generation
-    └── Token Trading Management
+    └── Access Code Generation
 ```
 
 ### Process Flow
