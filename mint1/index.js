@@ -89,11 +89,11 @@ async function waitForStatusChange(propertyID, expectedStatus, timeout = 300000)
             const currentStatus = await getPropertyStatus(propertyID);
             
             if (currentStatus === expectedStatus) {
-                console.log(`✅ Property ${propertyID} reached expected status: ${expectedStatus}`);
+                console.log(`Property ${propertyID} reached expected status: ${expectedStatus}`);
                 return true;
             }
             
-            console.log(`⏳ Current status: ${currentStatus}, waiting for: ${expectedStatus}`);
+            console.log(`Current status: ${currentStatus}, waiting for: ${expectedStatus}`);
             await delay(10000); // Check every 10 seconds
             
         } catch (error) {
@@ -109,23 +109,16 @@ async function waitForStatusChange(propertyID, expectedStatus, timeout = 300000)
 async function waitForPropertyDataUpdate(timeout = 300000) {
     const startTime = Date.now();
     
-    console.log("⏳ Waiting for Chainlink to update property data...");
-    
-    // You'll need to get the property data contract address
-    // For now, this is a placeholder - replace with actual contract interaction
+    console.log("Waiting for Chainlink to update property data...");
+   
     while (Date.now() - startTime < timeout) {
         try {
-            // This would check your IPropertyData contract
-            // const propertyDataContract = new web3.eth.Contract(propertyDataABI, propertyDataAddress);
-            // const isReady = await checkPropertyDataReady(propertyDataContract);
-            
-            // For now, just wait a fixed time since we don't have the property data contract details
-            console.log("⏳ Waiting for Chainlink oracle response...");
+            console.log("Waiting for Chainlink oracle response...");
             await delay(15000); // Check every 15 seconds
             
-            // Return true after reasonable wait time (you should implement proper checking)
+            // Return true after reasonable wait time 
             if (Date.now() - startTime > 120000) { // 2 minutes
-                console.log("✅ Assuming property data is ready after 2 minutes");
+                console.log("Assuming property data is ready after 2 minutes");
                 return true;
             }
             
@@ -147,11 +140,10 @@ async function startregistartion(name, location, ownerID, propertyID) {
            from: accounts[0],
            gas: 500000
        });
-       console.log("✅ Property registration transaction completed");
+       console.log("Property registration transaction completed");
        
-       // Wait for Chainlink to update verification contract
-       console.log("⏳ Waiting for Chainlink to fetch Owner ID from API...");
-       await delay(90000); // Wait 2 minutes for Chainlink to complete
+       console.log("Waiting for Chainlink to fetch Owner ID from API...");
+       await delay(90000); // Wait 1.5 minutes for Chainlink to complete
        
    } catch (error) {
        console.error("Registration error:", error);
@@ -175,11 +167,11 @@ async function processVerification(propertyID) {
             gas: 500000
         });
         
-        console.log("✅ Verification process completed successfully");
+        console.log("Verification process completed successfully");
         
         // After verification, wait for property data to be requested
-        console.log("⏳ Waiting for property data Chainlink request...");
-        await delay(90000); // Wait 30 seconds for the property data request to be sent
+        console.log("Waiting for property data Chainlink request...");
+        await delay(90000); // Wait 1.5 minutes for the property data request to be sent
         
     } catch (error) {
         console.error("Verification error:", error);
@@ -243,8 +235,8 @@ async function uploadMetadataToIPFS(metadataJSON) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'pinata_api_key': '9dfc4c4cbe1fb8cb4b17', // Replace with your key
-                'pinata_secret_api_key': '163d3d8a4d8e7f0967d4160d98efdfcd45d78eca9b1a0d46a888657ba0bddd20' // Replace with your secret
+                'pinata_api_key': '9dfc4c4cbe1fb8cb4b17',
+                'pinata_secret_api_key': '163d3d8a4d8e7f0967d4160d98efdfcd45d78eca9b1a0d46a888657ba0bddd20'
             },
             body: JSON.stringify({
                 pinataContent: JSON.parse(metadataJSON),
@@ -263,8 +255,6 @@ async function uploadMetadataToIPFS(metadataJSON) {
         
     } catch (error) {
         console.error("IPFS upload failed, using data URI fallback:", error);
-        
-        // Fallback: Create data URI (not recommended for production)
         const base64Metadata = btoa(metadataJSON);
         return `data:application/json;base64,${base64Metadata}`;
     }
@@ -292,7 +282,7 @@ async function mint(id, metauri) {
 
 async function processPropertyData(propertyID) {
     try {
-        console.log("📊 Starting property data processing...");
+        console.log("Starting property data processing...");
         
         // Check current status before proceeding
         const currentStatus = await getPropertyStatus(propertyID);
@@ -301,12 +291,12 @@ async function processPropertyData(propertyID) {
         }
         
         const accounts = await window.ethereum.request({method: 'eth_accounts' });
-        const maxRetries = 20; // Try for up to 20 attempts (about 10 minutes)
+        const maxRetries = 2; // Try for up to 2 attempts (about 2 minutes)
         let retryCount = 0;
         
         while (retryCount < maxRetries) {
             try {
-                console.log(`🔄 Attempt ${retryCount + 1}/${maxRetries} - Checking if property data is ready...`);
+                console.log(`Attempt ${retryCount + 1}/${maxRetries} - Checking if property data is ready...`);
                 
                 // Try to call the function - if it fails, wait and retry
                 await contract.methods.processPropertyData(propertyID).send({
@@ -314,13 +304,13 @@ async function processPropertyData(propertyID) {
                     gas: 500000
                 });
                 
-                console.log("✅ Property data processing completed successfully");
+                console.log("Property data processing completed successfully");
                 return; // Success, exit the function
                 
             } catch (error) {
                 if (error.message.includes("Invalid data")) {
                     retryCount++;
-                    console.log(`⏳ Oracle data not ready yet. Waiting 30 seconds before retry ${retryCount}/${maxRetries}...`);
+                    console.log(`Oracle data not ready yet. Waiting 30 seconds before retry ${retryCount}/${maxRetries}...`);
                     
                     if (retryCount >= maxRetries) {
                         throw new Error("Timeout: Property data oracle did not respond after maximum retries");
@@ -351,32 +341,32 @@ async function handleCompletePropertyProcess(name, location, ownerID, propertyID
         const originalText = nextBtn.innerText;
         nextBtn.disabled = true;
         
-        console.log("🏠 Starting complete property registration workflow...");
+        console.log("Starting complete property registration workflow...");
         
         // Step 1: Registration
         updateButtonStatus("Registering...");
-        console.log("📝 Step 1: Starting property registration");
+        console.log("Step 1: Starting property registration");
         await startregistartion(name, location, ownerID, propertyID);
         
         // Step 2: Verification
         updateButtonStatus("Verifying...");
-        console.log("🔍 Step 2: Starting verification process");
+        console.log("Step 2: Starting verification process");
         await processVerification(propertyID);
         
         // Step 3: Data Processing (with proper waiting)
         updateButtonStatus("Processing Data...");
-        console.log("📊 Step 3: Starting property data processing");  
+        console.log("Step 3: Starting property data processing");  
         await processPropertyData(propertyID);
         
-        console.log("🎉 All processes completed successfully!");
-        alert("🏠 Property registration completed successfully!");
+        console.log("All processes completed successfully!");
+        alert("Property registration completed successfully!");
         
         nextBtn.disabled = false;
         nextBtn.innerText = originalText;
         
     } catch (error) {
-        console.error("❌ Complete workflow error:", error);
-        alert(`❌ Error: ${error.message}`);
+        console.error("Complete workflow error:", error);
+        alert(`Error: ${error.message}`);
         
         const nextBtn = document.getElementById("next-btn");
         nextBtn.disabled = false;
